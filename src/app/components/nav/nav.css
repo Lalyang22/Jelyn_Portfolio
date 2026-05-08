@@ -1,0 +1,6 @@
+/* NavComponent styles */
+
+/* Smooth hamburger bar transforms */
+:host nav span {
+  transform-origin: center;
+}

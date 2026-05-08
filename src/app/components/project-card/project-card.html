@@ -1,0 +1,50 @@
+<article
+  class="pastel-card bg-white/60 flex flex-col gap-4 hover:shadow-lg transition-shadow duration-300"
+  aria-label="{{ project.title }}"
+>
+  @if (project.imageUrl) {
+    <img
+      [src]="project.imageUrl"
+      [alt]="project.title"
+      class="w-full h-44 object-cover rounded-2xl"
+      width="600"
+      height="176"
+    />
+  }
+
+  <div class="flex flex-col gap-3 flex-1">
+    <h3 class="font-serif text-xl text-brand-ink">{{ project.title }}</h3>
+    <p class="font-sans text-sm text-brand-ink/70 leading-relaxed flex-1">{{ project.description }}</p>
+
+    <!-- Tech tags -->
+    <div class="flex flex-wrap gap-2">
+      @for (tag of project.tags; track tag) {
+        <span class="px-3 py-1 rounded-full text-xs font-sans font-medium bg-brand-soft text-brand-ink">
+          {{ tag }}
+        </span>
+      }
+    </div>
+
+    <!-- Links -->
+    <div class="flex gap-4 pt-2">
+      <a
+        [href]="project.demoUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-sans text-sm font-medium text-brand-ink underline underline-offset-4 hover:opacity-70 transition-opacity"
+        aria-label="Live demo for {{ project.title }}"
+      >
+        Live Demo
+      </a>
+      <a
+        [href]="project.repoUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-sans text-sm font-medium text-brand-ink underline underline-offset-4 hover:opacity-70 transition-opacity"
+        aria-label="Source repository for {{ project.title }}"
+      >
+        Source
+      </a>
+    </div>
+  </div>
+</article>

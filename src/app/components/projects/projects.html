@@ -1,0 +1,22 @@
+<section
+  class="min-h-screen py-24 px-6 bg-brand-cream"
+  aria-label="Projects section"
+>
+  <div class="max-w-6xl mx-auto">
+
+    <h2 class="font-serif text-4xl md:text-5xl text-brand-ink text-center mb-4">
+      Projects
+    </h2>
+    <p class="font-sans text-brand-ink/60 text-center mb-12">
+      A selection of things I've built
+    </p>
+
+    <!-- Project grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (project of allProjects; track project.title) {
+        <app-project-card [project]="project" />
+      }
+    </div>
+
+  </div>
+</section>

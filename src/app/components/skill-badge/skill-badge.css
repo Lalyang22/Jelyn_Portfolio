@@ -1,0 +1,5 @@
+/* SkillBadgeComponent — chip/tag styles */
+
+:host {
+  display: inline-block;
+}

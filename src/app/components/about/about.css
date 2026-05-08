@@ -1,0 +1,5 @@
+/* AboutComponent — section-level styles */
+
+:host {
+  display: block;
+}

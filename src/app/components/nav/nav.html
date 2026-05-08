@@ -1,0 +1,101 @@
+<nav
+  [ngClass]="{ glass: isScrolled() }"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  role="navigation"
+  aria-label="Main navigation"
+>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo / Name -->
+    <a
+      routerLink="/"
+      class="font-serif text-2xl font-semibold text-brand-ink tracking-wide"
+      aria-label="Jelyn – back to home"
+    >
+      Jelyn
+    </a>
+
+    <!-- Desktop links (≥768 px) -->
+    <ul class="hidden md:flex items-center gap-8 list-none m-0 p-0">
+      @for (link of navLinks; track link.label) {
+        <li>
+          @if (link.type === 'route') {
+            <a
+              [routerLink]="link.routerLink"
+              routerLinkActive="underline"
+              class="font-sans text-sm text-brand-ink/80 hover:text-brand-ink transition-colors duration-200 underline-offset-4"
+              [attr.aria-label]="'Navigate to ' + link.label"
+            >
+              {{ link.label }}
+            </a>
+          } @else {
+            <a
+              [href]="link.href"
+              class="font-sans text-sm text-brand-ink/80 hover:text-brand-ink transition-colors duration-200 hover:underline underline-offset-4"
+              [attr.aria-label]="'Navigate to ' + link.label + ' section'"
+            >
+              {{ link.label }}
+            </a>
+          }
+        </li>
+      }
+    </ul>
+
+    <!-- Hamburger button (<768 px) -->
+    <button
+      class="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-lg hover:bg-brand-soft/50 transition-colors duration-200"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+      type="button"
+    >
+      <span
+        class="block w-5 h-0.5 bg-brand-ink transition-all duration-300"
+        [ngClass]="{ 'rotate-45 translate-y-2': menuOpen() }"
+      ></span>
+      <span
+        class="block w-5 h-0.5 bg-brand-ink transition-all duration-300"
+        [ngClass]="{ 'opacity-0': menuOpen() }"
+      ></span>
+      <span
+        class="block w-5 h-0.5 bg-brand-ink transition-all duration-300"
+        [ngClass]="{ '-rotate-45 -translate-y-2': menuOpen() }"
+      ></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu (<768 px) -->
+  @if (menuOpen()) {
+    <div
+      id="mobile-menu"
+      class="md:hidden glass border-t border-white/30"
+    >
+      <ul class="flex flex-col list-none m-0 p-0 px-6 py-4 gap-1">
+        @for (link of navLinks; track link.label) {
+          <li>
+            @if (link.type === 'route') {
+              <a
+                [routerLink]="link.routerLink"
+                class="block font-sans text-base text-brand-ink/80 hover:text-brand-ink py-2 transition-colors duration-200"
+                [attr.aria-label]="'Navigate to ' + link.label"
+                (click)="closeMenu()"
+              >
+                {{ link.label }}
+              </a>
+            } @else {
+              <a
+                [href]="link.href"
+                class="block font-sans text-base text-brand-ink/80 hover:text-brand-ink py-2 transition-colors duration-200"
+                [attr.aria-label]="'Navigate to ' + link.label + ' section'"
+                (click)="closeMenu()"
+              >
+                {{ link.label }}
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

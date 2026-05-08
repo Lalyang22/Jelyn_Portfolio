@@ -1,0 +1,158 @@
+<section
+  class="min-h-screen py-24 px-6 bg-brand-cream"
+  aria-label="Contact section"
+>
+  <div class="max-w-5xl mx-auto">
+
+    <h2 class="font-serif text-4xl md:text-5xl text-brand-ink text-center mb-4">
+      Get in Touch
+    </h2>
+    <p class="font-sans text-brand-ink/60 text-center mb-16">
+      I'd love to hear from you
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
+      <!-- Contact form -->
+      <div class="pastel-card bg-white/60">
+
+        @if (submitted()) {
+          <div class="flex flex-col items-center gap-4 py-8 text-center" role="status" aria-live="polite">
+            <span class="text-4xl" aria-hidden="true">🌸</span>
+            <h3 class="font-serif text-2xl text-brand-ink">Message sent!</h3>
+            <p class="font-sans text-sm text-brand-ink/70">Thanks for reaching out. I'll get back to you soon.</p>
+            <button
+              class="mt-4 px-6 py-2 rounded-full bg-brand-ink text-brand-cream font-sans text-sm hover:opacity-80 transition-opacity"
+              (click)="submitted.set(false)"
+            >
+              Send another
+            </button>
+          </div>
+        } @else {
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="flex flex-col gap-5">
+
+            <!-- Name -->
+            <div class="flex flex-col gap-1">
+              <label for="name" class="font-sans text-sm font-medium text-brand-ink">Name</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="rounded-xl border px-4 py-3 font-sans text-sm text-brand-ink bg-white/80 outline-none focus:ring-2 focus:ring-brand-soft transition"
+                [class.border-red-300]="isInvalid('name')"
+                [class.border-brand-lavender]="!isInvalid('name')"
+                autocomplete="name"
+                aria-required="true"
+                [attr.aria-invalid]="isInvalid('name')"
+                aria-describedby="name-error"
+              />
+              <div id="name-error" aria-live="polite" class="min-h-5">
+                @if (isInvalid('name')) {
+                  <span class="font-sans text-xs text-red-500">{{ getError('name') }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1">
+              <label for="email" class="font-sans text-sm font-medium text-brand-ink">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="rounded-xl border px-4 py-3 font-sans text-sm text-brand-ink bg-white/80 outline-none focus:ring-2 focus:ring-brand-soft transition"
+                [class.border-red-300]="isInvalid('email')"
+                [class.border-brand-lavender]="!isInvalid('email')"
+                autocomplete="email"
+                aria-required="true"
+                [attr.aria-invalid]="isInvalid('email')"
+                aria-describedby="email-error"
+              />
+              <div id="email-error" aria-live="polite" class="min-h-5">
+                @if (isInvalid('email')) {
+                  <span class="font-sans text-xs text-red-500">{{ getError('email') }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="flex flex-col gap-1">
+              <label for="subject" class="font-sans text-sm font-medium text-brand-ink">Subject</label>
+              <input
+                id="subject"
+                type="text"
+                formControlName="subject"
+                class="rounded-xl border px-4 py-3 font-sans text-sm text-brand-ink bg-white/80 outline-none focus:ring-2 focus:ring-brand-soft transition"
+                [class.border-red-300]="isInvalid('subject')"
+                [class.border-brand-lavender]="!isInvalid('subject')"
+                aria-required="true"
+                [attr.aria-invalid]="isInvalid('subject')"
+                aria-describedby="subject-error"
+              />
+              <div id="subject-error" aria-live="polite" class="min-h-5">
+                @if (isInvalid('subject')) {
+                  <span class="font-sans text-xs text-red-500">{{ getError('subject') }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="flex flex-col gap-1">
+              <label for="message" class="font-sans text-sm font-medium text-brand-ink">Message</label>
+              <textarea
+                id="message"
+                formControlName="message"
+                rows="5"
+                class="rounded-xl border px-4 py-3 font-sans text-sm text-brand-ink bg-white/80 outline-none focus:ring-2 focus:ring-brand-soft transition resize-none"
+                [class.border-red-300]="isInvalid('message')"
+                [class.border-brand-lavender]="!isInvalid('message')"
+                aria-required="true"
+                [attr.aria-invalid]="isInvalid('message')"
+                aria-describedby="message-error"
+              ></textarea>
+              <div id="message-error" aria-live="polite" class="min-h-5">
+                @if (isInvalid('message')) {
+                  <span class="font-sans text-xs text-red-500">{{ getError('message') }}</span>
+                }
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="mt-2 px-8 py-3 rounded-full bg-brand-ink text-brand-cream font-sans text-sm font-medium hover:opacity-80 transition-opacity self-start"
+            >
+              Send Message
+            </button>
+
+          </form>
+        }
+      </div>
+
+      <!-- Social links -->
+      <div class="flex flex-col gap-6">
+        <div class="pastel-card bg-brand-soft/30">
+          <h3 class="font-serif text-2xl text-brand-ink mb-6">Connect</h3>
+          <ul class="flex flex-col gap-4 list-none p-0 m-0">
+            @for (link of socialLinks; track link.label) {
+              <li>
+                <a
+                  [href]="link.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 font-sans text-sm text-brand-ink/80 hover:text-brand-ink transition-colors duration-200 group"
+                  [attr.aria-label]="link.label + ' profile'"
+                >
+                  <span class="w-8 h-8 rounded-full bg-white/70 flex items-center justify-center text-xs font-bold group-hover:bg-brand-soft transition-colors">
+                    {{ link.label[0] }}
+                  </span>
+                  {{ link.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
