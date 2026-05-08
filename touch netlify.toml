@@ -1,6 +1,0 @@
-[build]
-  command = "ng build"
-  publish = "dist/my-portfolio/browser/index.html"
-
-[build.environment]
-  NODE_VERSION = "20"
